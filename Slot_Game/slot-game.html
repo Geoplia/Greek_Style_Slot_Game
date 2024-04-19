@@ -45,6 +45,17 @@
             </tr>
         </table>
         <button onclick="spin()">Spin</button>
+        <!-- Button for auto spins --> 
+        <div id="autoSpinControls" style="display: none;">
+            <label for="autoSpinSlider">Select number of auto spins:</label>
+            <input type="range" id="autoSpinSlider" min="1" max="100" value="1">
+            <span id="autoSpinValue">1</span>
+            <button onclick="performAutoSpins()">Start Auto Spins</button>
+        </div>
+        
+        <button id="enableAutoSpins">Enable Auto Spins</button>
+
+
         <span id="balance">Balance: $100</span> <!-- Display balance -->
         <select id="betValue">
             <option value="1">Bet: $1</option>
@@ -52,6 +63,7 @@
             <option value="10">Bet: $10</option>
             <!-- Add more bet values as needed -->
         </select>
+        
         <p id="result"></p>
     </div>
     <script src="script.js"></script>

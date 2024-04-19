@@ -12,7 +12,7 @@ const symbolImages = {
     'Zeus': 'Zeus.jpg',
     'Poseidon': 'Poseidon.png',
     'Athena': 'Athena.jpg',
-    'Bonus': 'Bonus.jpg',
+    'Bonus': 'Bonus.jpeg',
     'Bottle': 'bottle_symbol.png',
     'Harp': 'harp_symbol.png',
     'Olive': 'olive_symbol.png'
@@ -203,8 +203,18 @@ function spinAndGetResult() {
 
 let balance = 100; // Initial balance
 
+let spinning = false; // Variable to track whether a spin is in progress
+
 // Spin function using the selectSymbol function
-/* function spin() {
+function spin() {
+    // Check if a spin is already in progress
+    if (spinning) {
+        return; // If spinning, exit the function early to prevent another spin
+    }
+
+    // Set spinning to true to indicate that a spin is in progress
+    spinning = true;
+
     const betValue = document.getElementById('betValue').value; // Get selected bet value
     if (balance >= betValue) {
         balance -= betValue; // Deduct bet value from balance
@@ -212,11 +222,14 @@ let balance = 100; // Initial balance
         // Perform the spinning action
     } else {
         alert('Insufficient balance!'); // Show alert if balance is insufficient
+        spinning = false; // Reset spinning status
+        return; // Exit the function early if balance is insufficient
     }
+
     const table = document.getElementById('slotMachine');
     let totalPayout = 0;
     bonusCount = 0;
-    
+
     // Reset result display
     document.getElementById('result').textContent = '';
 
@@ -236,12 +249,67 @@ let balance = 100; // Initial balance
                     activateBonus(); // Trigger the bonus mode
                 }
 
+                // Check if all symbols are shown
+                if (i === table.rows.length - 1 && j === table.rows[i].cells.length - 1) {
+                    spinning = false; // Reset spinning status when all symbols are shown
+                }
+
             }, (j * table.rows.length + i) * 120); // Adjust the delay as needed
         }
     }
- } */
+}
 
- function spin() {
+// Add event listener for the "Enable auto spins" button
+document.getElementById('enableAutoSpins').addEventListener('click', toggleAutoSpins);
+
+// Function to toggle auto spins mode
+function toggleAutoSpins() {
+    const autoSpinControls = document.getElementById('autoSpinControls');
+    autoSpinControls.style.display = autoSpinControls.style.display === 'block' ? 'none' : 'block';
+}
+
+// Event listener for updating auto spins value display
+document.getElementById('autoSpinSlider').addEventListener('input', () => {
+    document.getElementById('autoSpinValue').textContent = document.getElementById('autoSpinSlider').value;
+});
+
+// Function to perform auto spins
+function performAutoSpins() {
+    // Read the selected number of auto spins from the slider
+    const numAutoSpins = document.getElementById('autoSpinSlider').value;
+    
+    // Disable auto spins button during auto spins
+    document.getElementById('enableAutoSpins').disabled = true;
+    
+    // Perform the specified number of auto spins sequentially
+    let spinCount = 0;
+    function autoSpinLoop() {
+        // Check if all auto spins are completed
+        if (spinCount >= numAutoSpins) {
+            // Re-enable auto spins button after auto spins are finished
+            document.getElementById('enableAutoSpins').disabled = false;
+            return;
+        }
+
+        // Wait for a brief moment before starting the next spin
+        setTimeout(() => {
+            // Check if a spin is already in progress
+            if (!spinning) {
+                // Call the spin function to perform a spin
+                spin();
+                spinCount++;
+            }
+            
+            // Continue to the next spin after a short delay
+            setTimeout(autoSpinLoop, 200); // Adjust the delay as needed
+        }, 500); // Brief wait before starting the next spin
+    }
+
+    // Start the auto spin loop
+    autoSpinLoop();
+}
+
+ /*function spin() {
     const betValue = document.getElementById('betValue').value; // Get selected bet value
     if (balance >= betValue) {
         balance -= betValue; // Deduct bet value from balance
@@ -288,7 +356,7 @@ let balance = 100; // Initial balance
             table.rows[i].cells[j].innerHTML = `<img src="symbols/${imgSrc}" alt="${symbol}">`;
         }, (j * table.rows.length + i) * 120); // Adjust the delay as needed
     }
-}
+}*/
 
 
 
