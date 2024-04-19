@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greeked Theme Slot Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@1..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="bonusGates"></div>
+    
+    <div id="container">
+        <h1>Greek Slot</h1>
+        <table id="slotMachine">
+            <tr>
+                <td id="cell00"></td>
+                <td id="cell01"></td>
+                <td id="cell02"></td>
+                <td id="cell03"></td>
+                <td id="cell04"></td>
+            </tr>
+            <tr>
+                <td id="cell10"></td>
+                <td id="cell11"></td>
+                <td id="cell12"></td>
+                <td id="cell13"></td>
+                <td id="cell14"></td>
+            </tr>
+            <tr>
+                <td id="cell20"></td>
+                <td id="cell21"></td>
+                <td id="cell22"></td>
+                <td id="cell23"></td>
+                <td id="cell24"></td>
+            </tr>
+            <tr>
+                <td id="cell30"></td>
+                <td id="cell31"></td>
+                <td id="cell32"></td>
+                <td id="cell33"></td>
+                <td id="cell34"></td>
+            </tr>
+        </table>
+        <button onclick="spin()">Spin</button>
+        <span id="balance">Balance: $100</span> <!-- Display balance -->
+        <select id="betValue">
+            <option value="1">Bet: $1</option>
+            <option value="5">Bet: $5</option>
+            <option value="10">Bet: $10</option>
+            <!-- Add more bet values as needed -->
+        </select>
+        <p id="result"></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
