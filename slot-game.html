@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Greeked Theme Slot Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@1..1000&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/92c8c6e266.js" crossorigin="anonymous"></script>
+    <audio id="backgroundMusic" src='audio/Good_Ridance_Background.mp3' preload="auto" loop></audio>
+    <audio id="bonusModeSong" src="audio/The_Unseen_Ones_Bonus.mp3" loop></audio>
+    <audio id="Thunder" src="audio/Thunder.mp3"></audio>
+    </head>
+<body>
+    
+    
+    <div id="container">
+        <h1>Greek Slot</h1>
+        <table id="slotMachine">
+            <tr>
+                <td id="cell00"></td>
+                <td id="cell01"></td>
+                <td id="cell02"></td>
+                <td id="cell03"></td>
+                <td id="cell04"></td>
+            </tr>
+            <tr>
+                <td id="cell10"></td>
+                <td id="cell11"></td>
+                <td id="cell12"></td>
+                <td id="cell13"></td>
+                <td id="cell14"></td>
+            </tr>
+            <tr>
+                <td id="cell20"></td>
+                <td id="cell21"></td>
+                <td id="cell22"></td>
+                <td id="cell23"></td>
+                <td id="cell24"></td>
+            </tr>
+            <tr>
+                <td id="cell30"></td>
+                <td id="cell31"></td>
+                <td id="cell32"></td>
+                <td id="cell33"></td>
+                <td id="cell34"></td>
+            </tr>
+        </table>
+        <div id="wonAmount">
+            Won Amount: $<span id="wonAmountValue">0.00</span>
+        </div>
+        
+        <div id="remainingSpinsContainer">
+            <div id="remainingSpinsTextContainer">
+                <span id="remainingSpins">Remaining Spins: 8</span>
+            </div>
+        </div>
+
+        <button onclick="spin(); startBackgroundMusic();">Spin</button>
+        
+        <!-- Button to enable auto spins -->
+        <button id="enableAutoSpins" onclick="toggleAutoSpins()">Enable Auto Spins</button>
+        <!-- Button to trigger bonus activation -->
+        <button onclick="showBonusConfirmation()">Buy Bonus</button>
+         
+        <!-- New popup screen for bonus buy confirmation -->
+        <div id="BonusBuyPopupScreen" class="BonusBuyPopupScreen">
+            <div class="BonusBuyPopupContent">
+                <span>Activate Bonus Mode?</span><br>
+
+                <div id="bonusValueDisplay" class="bonusValueDisplay">
+                    Bonus Value: $10.00 <!-- Default value based on initial option (0.2x bet) -->
+                </div>
+
+                <button onclick="checkAndActivateBonus()">Yes</button>
+                <button onclick="hideBonusConfirmation()">No</button><br>
+                
+                <span>Select Bet:</span>
+                <select id="betSelect" onchange="updateBonusValue()">
+                    <option value="0.2">0.2$</option>
+                    <option value="0.4">0.4$</option>
+                    <option value="1">1$</option>
+                    <option value="2">2$</option>
+                    <option value="5">5$</option>
+                    </select>
+            </div>
+        </div>
+
+        <!-- Button to open the info pop-up screen -->
+        <button id="openPopupButton">Info<i class="fa-solid fa-circle-info"></i></button>
+        <div id="infoPopUpScreen" class="infoPopUpScreen">
+            <div class="infoPopUpContent">
+        <span id="closePopupButton" class="closePopupButton">&times;</span>
+        
+        <div id="popupContentContainer">
+            <!-- Content for Page 1 -->
+            <div id="page1Content">
+                <!-- Payout values table/list -->
+                <h2>Game Overview</h2>
+                <p>Welcome to the Greek-Themed Slot Game! This slot features a 5x4 grid with 40 paylines. Spin the reels and match symbols to win. Here's what you need to know about the symbols:</p>
+                
+                <h3>Symbols:</h3>
+                <ul>
+                    <li><strong>10, J, Q, K, A:</strong> These are the lower-paying symbols. Match 3, 4, or 5 of the same symbol on an active payline to win.</li>
+                    <li><strong>Bottle, Harp, Olive:</strong> Medium-paying symbols offering higher rewards for matching combinations.</li>
+                    <li><strong>Athena, Poseidon, Zeus:</strong> High-paying symbols, representing the gods, offer the largest payouts in the game.</li>
+                    <li><strong>Bonus:</strong> Landing 3 or more Bonus symbols will trigger the Bonus Mode, awarding free spins.</li>
+                    <li><strong>Wild:</strong> The Wild symbol substitutes for all other symbols (except the Bonus symbol) to help form winning combinations.</li>
+                </ul>
+            </div>
+            <!-- Content for Page 2 -->
+            <div id="page2Content" style="display: none;">
+                <!-- Winning combinations details -->
+                <h2>Paylines and Payouts</h2>
+                <p>The game features 40 paylines. Winning combinations are counted from left to right, starting from the first reel. Here are the details:</p>
+
+                <h3>Paylines:</h3>
+                <p>There are 40 different paylines, including horizontal, zig-zag, and arrow patterns. Winning on multiple paylines adds up the payouts.</p>
+
+                <h3>Payouts:</h3>
+                <ul>
+                    <li><strong>10, J, Q:</strong> 
+                        <ul>
+                            <li>3 symbols: 0.10x your bet</li>
+                            <li>4 symbols: 0.25x your bet</li>
+                            <li>5 symbols: 1.00x your bet</li>
+                        </ul>
+                    </li>
+                    <li><strong>K, A:</strong> 
+                        <ul>
+                            <li>3 symbols: 0.15x your bet</li>
+                            <li>4 symbols: 0.30x your bet</li>
+                            <li>5 symbols: 1.50x your bet</li>
+                        </ul>
+                    </li>
+                    <li><strong>Bottle:</strong>
+                        <ul>
+                            <li>3 symbols: 0.25x your bet</li>
+                            <li>4 symbols: 0.5x your bet</li>
+                            <li>5 symbols: 2.50x your bet</li>
+                        </ul>
+                    </li>
+                    <li><strong>Harp:</strong>
+                        <ul>
+                            <li>3 symbols: 0.35x your bet</li>
+                            <li>4 symbols: 0.75x your bet</li>
+                            <li>5 symbols: 3.75x your bet</li>
+                        </ul>
+                    </li>
+                    <li><strong>Olive:</strong>
+                        <ul>
+                            <li>3 symbols: 0.50x your bet</li>
+                            <li>4 symbols: 1.25x your bet</li>
+                            <li>5 symbols: 5.00x your bet</li>
+                        </ul>
+                    </li>
+                    <li><strong>Athena:</strong>
+                        <ul>
+                            <li>3 symbols: 0.75x your bet</li>
+                            <li>4 symbols: 2.00x your bet</li>
+                            <li>5 symbols: 7.50x your bet</li>
+                        </ul>
+                    </li>
+                    <li><strong>Poseidon:</strong>
+                        <ul>
+                            <li>3 symbols: 1.25x your bet</li>
+                            <li>4 symbols: 3.75x your bet</li>
+                            <li>5 symbols: 12.50x your bet</li>
+                        </ul>
+                    </li>
+                    <li><strong>Zeus:</strong>
+                        <ul>
+                            <li>3 symbols: 1.50x your bet</li>
+                            <li>4 symbols: 5.00x your bet</li>
+                            <li>5 symbols: 20.00x your bet</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- Content for Page 3 -->
+            <div id="page3Content" style="display: none;">
+                <!-- Bonus features description -->
+                <h2>Bonus Mode and Special Features</h2>
+                <p>The Bonus Mode offers exciting opportunities to win big! Here's how it works:</p>
+                
+                <h3>Bonus Mode:</h3>
+                <ul>
+                    <li>Trigger the Bonus Mode by landing 3 or more Bonus symbols in a single spin.</li>
+                    <li>Bonus Mode grants 8 free spins, during which special rules apply.</li>
+                </ul>
+
+                <h3>Special Features:</h3>
+                <ul>
+                    <li><strong>Wild Symbols:</strong> The Wild symbol substitutes for all other symbols (except the Bonus symbol) to help form winning combinations during both normal and bonus spins.</li>
+                    <li><strong>Buy Bonus:</strong> You can directly purchase the Bonus Mode by clicking the "Buy Bonus" button. The cost is 50x your selected bet value.</li>
+                </ul>
+
+                <p>Enjoy the game and may the gods be in your favor!</p>
+            </div>
+        </div>
+        <!-- Arrow buttons for navigation -->
+        <button id="prevPageButton">&larr;</button>
+        <button id="nextPageButton">&rarr;</button>
+    </div>
+</div>
+    
+        <div id="musicControl">
+            <button onclick="toggleMusicVolume()">
+                <i class="fa-solid fa-volume-high"></i>
+            </button>
+            <input type="range" id="volumeSlider" min="0" max="100" value="50" onchange="adjustVolume()">
+        </div>
+
+
+           
+         
+        <!-- Pop-up screen -->
+        <div id="popupScreen" class="popupScreen">
+            <div class="popupContent">
+                <span id="closePopupButton" class="closePopupButton">&times;</span>
+                <h2>Bonus Mode Activated</h2>
+                <p>You have been awarded 8 free spins</p>
+                <button id="startFreeSpinsButton" onclick="startFreeSpins()">Start Free Spins</button>
+                </div>
+        </div>
+        
+
+        <!-- Auto Spin Controls -->
+        <div id="autoSpinControls" style='display: none;'>
+            <label for="autoSpinSlider">Number of Auto Spins:</label>
+            <input type="range" id="autoSpinSlider" min="1" max="100" value="10">
+            <span id="autoSpinValue">10</span>
+        <button onclick="performAutoSpins()">Start Auto Spins</button>
+        </div> 
+         
+        <!-- Button to stop auto spins -->
+        <button id="stopAutoSpins" style="display: none;" onclick="stopAutoSpins()">Stop Auto Spins</button>
+
+        <span id="balance">Balance: 100$</span> <!-- Display balance -->
+        <select id="betValue" >
+            <option value="0.2">0.2$</option>
+            <option value="0.4">0.4$</option>
+            <option value="1">1$</option>
+            <option value="2">2$</option>
+            <option value="5">5$</option>
+        </select>
+        </div>
+        
+        <!-- Popup for displaying total winnings -->
+        <div id="totalWinningsPopup" class="totalWinningsPopup">
+            <div class="totalWinningsContent">
+                <span id="totalWinningsAmount" class="totalWinningsAmount" data-winnings="Total Winnings: $0.00">Total Winnings: $0.00</span><br>
+                <button onclick="hideTotalWinningsPopup()">Close</button>
+            </div>
+    
+            <p id="result"></p>
+        </div>
+    <script src="script.js"></script>
+</body>
+</html>

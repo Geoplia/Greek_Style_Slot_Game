@@ -1,0 +1,424 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Ysabeau SC', sans-serif;
+}
+
+body {
+    background: url('symbols/slot_background.png') center/cover no-repeat;
+}
+
+#container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* Table Styles */
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+td {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18px;
+    padding: 0;
+}
+
+#slotMachine td img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Button Styles */
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #191cd4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #cec220;
+}
+
+#stopAutoSpins,
+#enableAutoSpins {
+    margin: 0 auto;
+}
+
+#autoSpinControls {
+    display: none;
+    margin-top: 20px;
+}
+
+#balance {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+}
+
+#betValue {
+    margin-top: 10px;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#result {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Bonus Mode Background */
+.bonus-background {
+    background: url('symbols/bonus_background.jpg') center top/cover no-repeat;
+    height: 100%;
+}
+
+/* Remaining Spins Container */
+#remainingSpinsContainer {
+    display: none;
+    margin-top: 20px;
+    text-align: center;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+#remainingSpinsTextContainer span {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* Pop-up Screens */
+.popupScreen, .infoPopUpScreen, .BonusBuyPopupScreen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    overflow: auto;
+}
+
+.popupContent, .infoPopUpContent, .BonusBuyPopupContent, .totalWinningsContent {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-size: cover;
+    background-position: center;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    color: #e5e916;
+    width: 400px;
+}
+
+.popupContent {
+    width: 50%;
+    max-width: 600px;
+    height: 300px;
+    background-image: url('C:/Users/GEORGE/Desktop/Slot_Game/symbols/popup_gates.jpg');
+} 
+
+.popupContent {
+    position: relative;
+    width: 50%;
+    max-width: 600px;
+    height: 300px;
+    background-image: url('C:/Users/GEORGE/Desktop/Slot_Game/symbols/popup_gates.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #d6ec0c; 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.popupContent::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.popupContent h2,
+.popupContent p,
+.popupContent button {
+    position: relative;
+    z-index: 2; /* Ensure text is above the overlay */
+}
+
+
+.BonusBuyPopupContent {
+    width: 200px;
+    height: 150px;
+    background-color: #191cd4;
+}
+
+.BonusBuyPopupContent span,
+.totalWinningsContent span {
+    font-size: 25px;
+}
+
+.BonusBuyPopupContent button,
+.totalWinningsContent button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #2196F3;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+}
+
+.BonusBuyPopupContent button:hover,
+.totalWinningsContent button:hover {
+    background-color: #0b7dda;
+}
+
+.totalWinningsContent {
+    width: 250px;
+    height: 200px;
+    background-image: url('symbols/win-pic.jpeg');
+}
+
+/* Info Pop-up Content */
+.infoPopUpContent {
+    background-color: #3417db;
+    margin: 10% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+}
+
+#popupContentContainer {
+    margin-top: 40px;
+}
+
+/* Close Button */
+.closePopupButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #e70c0c;
+}
+
+/* Arrow Buttons for Pop-up Navigation */
+#prevPageButton,
+#nextPageButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    padding: 8px 12px;
+    background-color: #191cd4;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+#prevPageButton:hover,
+#nextPageButton:hover {
+    background-color: #0b7dda;
+}
+
+#prevPageButton {
+    left: 10px;
+    display: none; /* Hide previous button on first page */
+}
+
+#nextPageButton {
+    right: 10px;
+}
+
+/* Music Control */
+#musicControl {
+    position: relative;
+    display: inline-block;
+}
+
+#volumeSlider {
+    position: absolute;
+    bottom: calc(50% + 5px);
+    right: 0;
+    width: 100px;
+    transform: translateY(-50%);
+    display: none;
+}
+
+/* Style for the Won Amount display */
+#wonAmount {
+    display: none; 
+    font-size: 24px;
+    color: #FFD700; 
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: center; 
+}
+
+@media (max-width: 768px) {
+    #slotMachine {
+        transform: scale(0.8); 
+    }
+}
+
+@media (max-width: 480px) {
+    #slotMachine {
+        transform: scale(0.6); 
+    }
+}
+
+/* Animation for winning symbols */
+@keyframes flashWin {
+    0%, 100% { background-color: transparent; }
+    50% { background-color: #FFD700 ; } 
+}
+
+.flash {
+    animation: flashWin 0.8s ease-in-out infinite; 
+    border: 2px solid rgba(255, 255, 0, 0.7); 
+    box-shadow: 0px 0px 10px 3px rgba(255, 255, 0, 0.5); 
+}
+
+/* Total winnings popup styling */
+.totalWinningsPopup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 2px solid #000;
+    padding: 20px;
+    z-index: 1000;
+    text-align: center;
+    font-size: 24px;
+    border-radius: 10px;
+}
+
+/* Animated increasing of the winnings amount */
+@keyframes increaseWinnings {
+    from {
+        content: "Total Winnings: $0.00";
+    }
+    to {
+        content: attr(data-winnings);
+    }
+}
+
+.totalWinningsAmount {
+    /*display: block;*/
+    font-size: 32px;
+    font-weight: bold;
+    color: #FFD700;
+    height: 50px; 
+    font-family: 'Courier New', monospace; 
+    line-height: 50px; 
+    text-align: center; 
+}
+
+
+/* Styles for betSelect (inside the popup) */
+#betSelect {
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    background-color: #191cd4;
+    color: #e5e916;
+    font-size: 16px;
+    width: 100px; 
+}
+#betValue {
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    background-color: #191cd4;
+    color: #e5e916;
+    font-size: 16px;
+    width: 100px; 
+}
+/* Dynamic bonus value display */
+.bonusValueDisplay {
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #e5e916;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: #191cd4;
+    border-radius: 5px;
+}
+
+/* Buttons inside the popup */
+.BonusBuyPopupContent button {
+    margin: 10px;
+    padding: 8px 16px;
+    background-color: #e5e916;
+    color: #191cd4;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.BonusBuyPopupContent button:hover {
+    background-color: #191cd4;
+    color:#e5e916;
+}
+
+@keyframes spinFadeIn {
+    0% { transform: translate(5px, 5px) rotate(0deg); }
+    10% { transform: translate(-5px, -10px) rotate(-10deg); }
+    20% { transform: translate(-10px, 0px) rotate(10deg); }
+    30% { transform: translate(10px, 5px) rotate(0deg); }
+    40% { transform: translate(5px, -5px) rotate(10deg); }
+    50% { transform: translate(-5px, 10px) rotate(-10deg); }
+    60% { transform: translate(-10px, 5px) rotate(0deg); }
+    70% { transform: translate(10px, 5px) rotate(-10deg); }
+    80% { transform: translate(-5px, -5px) rotate(10deg); }
+    90% { transform: translate(5px, 10px) rotate(0deg); }
+    100% { transform: translate(5px, -10px) rotate(-10deg); }
+  }
+  
+  .spin-fade-in {
+    animation: spinFadeIn 1.5s ease-in-out;
+  }
